@@ -1,0 +1,18 @@
+<?php
+
+namespace {{ RepositoryNamespace }};
+
+use {{ ModelClass }};
+{{ InterfaceImport }}
+use Litepie\Repository\BaseRepository;
+
+class {{ RepositoryClass }} extends BaseRepository{{ InterfaceImplements }}
+{
+    /**
+     * Specify the model class name.
+     */
+    public function model(): string
+    {
+        return {{ ModelName }}::class;
+    }
+}

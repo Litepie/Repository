@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ InterfaceNamespace }};
+
+use Litepie\Repository\Contracts\RepositoryInterface;
+
+interface {{ InterfaceName }} extends RepositoryInterface
+{
+    //
+}
