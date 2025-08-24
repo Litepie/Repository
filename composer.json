@@ -1,6 +1,6 @@
 {
     "name": "litepie/repository",
-    "description": "A Laravel package implementing the Repository pattern with base repository, interfaces, and artisan commands",
+    "description": "Litepie Repository - Laravel Repository Pattern with Enterprise Features",
     "type": "library",
     "license": "MIT",
     "keywords": [
