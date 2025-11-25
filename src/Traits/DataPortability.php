@@ -511,7 +511,7 @@ trait DataPortability
         $avgRowSize = $format === 'csv' ? 100 : 200; // bytes per record estimate
         $totalSize = $recordCount * $avgRowSize;
         
-        return $this->formatBytes($totalSize);
+        return $this->formatBytesForExport($totalSize);
     }
 
     /**
@@ -533,7 +533,7 @@ trait DataPortability
     /**
      * Format bytes to human readable format.
      */
-    protected function formatBytes(int $bytes): string
+    protected function formatBytesForExport(int $bytes): string
     {
         $units = ['B', 'KB', 'MB', 'GB'];
         $unit = 0;
