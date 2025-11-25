@@ -306,7 +306,7 @@ trait RepositoryMetrics
                 'total_queries' => $metrics['total_queries'],
                 'total_time' => round($metrics['total_execution_time'] * 1000, 2) . 'ms',
                 'average_time' => round($metrics['average_query_time'] * 1000, 2) . 'ms',
-                'memory_used' => $this->formatBytes($metrics['memory_usage']),
+                'memory_used' => $this->formatBytesForMetrics($metrics['memory_usage']),
                 'cache_hit_rate' => round($metrics['cache_hit_rate'], 2) . '%',
             ],
             'issues' => [
@@ -358,7 +358,7 @@ trait RepositoryMetrics
             $recommendations[] = [
                 'type' => 'high_memory_usage',
                 'message' => 'Consider using chunked processing for large datasets',
-                'current_usage' => $this->formatBytes($metrics['memory_usage'])
+                'current_usage' => $this->formatBytesForMetrics($metrics['memory_usage'])
             ];
         }
         
@@ -417,7 +417,7 @@ trait RepositoryMetrics
     /**
      * Format bytes to human readable format.
      */
-    protected function formatBytes(int $bytes): string
+    protected function formatBytesForMetrics(int $bytes): string
     {
         $units = ['B', 'KB', 'MB', 'GB'];
         $unit = 0;
