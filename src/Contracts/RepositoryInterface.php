@@ -349,67 +349,67 @@ interface RepositoryInterface
      */
     public function makeModel(): Model;
 
-    // Optimized Pagination Methods
+    // // Optimized Pagination Methods
     
-    /**
-     * Cursor-based pagination for large datasets.
-     */
-    public function cursorPaginate(int $perPage = 15, array $columns = ['*'], string $cursorName = 'cursor', $cursor = null);
+    // /**
+    //  * Cursor-based pagination for large datasets.
+    //  */
+    // public function cursorPaginate(int $perPage = 15, array $columns = ['*'], string $cursorName = 'cursor', $cursor = null);
 
-    /**
-     * Fast pagination without total count.
-     */
-    public function fastPaginate(int $perPage = 15, array $columns = ['*'], string $pageName = 'page');
+    // /**
+    //  * Fast pagination without total count.
+    //  */
+    // public function fastPaginate(int $perPage = 15, array $columns = ['*'], string $pageName = 'page');
 
-    /**
-     * Optimized pagination with approximate count.
-     */
-    public function optimizedPaginate(int $perPage = 15, array $columns = ['*'], string $pageName = 'page', ?int $page = null, bool $useApproximateCount = true);
+    // /**
+    //  * Optimized pagination with approximate count.
+    //  */
+    // public function optimizedPaginate(int $perPage = 15, array $columns = ['*'], string $pageName = 'page', ?int $page = null, bool $useApproximateCount = true);
 
-    /**
-     * Chunk by ID for better performance.
-     */
-    public function chunkById(int $count, callable $callback, ?string $column = null, ?string $alias = null): bool;
+    // /**
+    //  * Chunk by ID for better performance.
+    //  */
+    // public function chunkById(int $count, callable $callback, ?string $column = null, ?string $alias = null): bool;
 
-    /**
-     * Lazy collection for memory-efficient iteration.
-     */
-    public function lazy(int $chunkSize = 1000);
+    // /**
+    //  * Lazy collection for memory-efficient iteration.
+    //  */
+    // public function lazy(int $chunkSize = 1000);
 
-    /**
-     * Lazy collection by ID.
-     */
-    public function lazyById(int $chunkSize = 1000, ?string $column = null, ?string $alias = null);
+    // /**
+    //  * Lazy collection by ID.
+    //  */
+    // public function lazyById(int $chunkSize = 1000, ?string $column = null, ?string $alias = null);
 
-    /**
-     * Seek pagination for real-time feeds.
-     */
-    public function seekPaginate(int $limit = 15, $lastId = null, string $direction = 'next', string $orderColumn = 'id');
+    // /**
+    //  * Seek pagination for real-time feeds.
+    //  */
+    // public function seekPaginate(int $limit = 15, $lastId = null, string $direction = 'next', string $orderColumn = 'id');
 
-    /**
-     * Get estimated count for large tables.
-     */
-    public function estimatedCount(): int;
+    // /**
+    //  * Get estimated count for large tables.
+    //  */
+    // public function estimatedCount(): int;
 
-    /**
-     * Cached pagination with total count caching.
-     */
-    public function cachedPaginate(int $perPage = 15, array $columns = ['*'], string $pageName = 'page', ?int $page = null, int $cacheTtl = 300);
+    // /**
+    //  * Cached pagination with total count caching.
+    //  */
+    // public function cachedPaginate(int $perPage = 15, array $columns = ['*'], string $pageName = 'page', ?int $page = null, int $cacheTtl = 300);
 
-    /**
-     * Create pagination performance report.
-     */
-    public function paginationPerformanceReport(int $perPage = 15, int $page = 1): array;
+    // /**
+    //  * Create pagination performance report.
+    //  */
+    // public function paginationPerformanceReport(int $perPage = 15, int $page = 1): array;
 
-    // Query String Parsing Methods
+    // // Query String Parsing Methods
     
-    /**
-     * Parse and apply filters from query string format.
-     */
-    public function parseQueryFilters(string $filterString, array $allowedFields = []): static;
+    // /**
+    //  * Parse and apply filters from query string format.
+    //  */
+    // public function parseQueryFilters(string $filterString, array $allowedFields = []): static;
 
-    /**
-     * Parse and apply filters from request query parameters.
-     */
-    public function parseRequestFilters(array $requestData, array $allowedFields = []): static;
+    // /**
+    //  * Parse and apply filters from request query parameters.
+    //  */
+    // public function parseRequestFilters(array $requestData, array $allowedFields = []): static;
 }

@@ -36,7 +36,7 @@ trait QueryStringParser
                 continue;
             }
             
-            $this->applyFilterCondition($field, $condition);
+            $this->applyQueryStringFilterCondition($field, $condition);
         }
         
         return $this;
@@ -129,7 +129,7 @@ trait QueryStringParser
      * @param array $condition
      * @return void
      */
-    protected function applyFilterCondition(string $field, array $condition): void
+    protected function applyQueryStringFilterCondition(string $field, array $condition): void
     {
         $operator = $condition['operator'];
         $values = $condition['values'];
