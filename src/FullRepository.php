@@ -40,8 +40,19 @@ abstract class FullRepository extends BaseRepository
         RelationshipManager,
         DataPortability,
         DynamicScopes,
-        RepositoryMetrics,
-        SearchableRepository;
+        RepositoryMetrics {
+            // Resolve method conflicts - CacheableRepository takes precedence for caching
+            CacheableRepository::get insteadof RepositoryMetrics;
+            CacheableRepository::first insteadof RepositoryMetrics;
+            CacheableRepository::paginate insteadof RepositoryMetrics;
+            
+            // RepositoryEvents takes precedence for CRUD operations with events
+            RepositoryEvents::create insteadof RepositoryMetrics;
+            RepositoryEvents::update insteadof RepositoryMetrics;
+            RepositoryEvents::delete insteadof RepositoryMetrics;
+            RepositoryEvents::find insteadof RepositoryMetrics;
+        }
+    use SearchableRepository;
 
     /**
      * Constructor with all features initialized.
