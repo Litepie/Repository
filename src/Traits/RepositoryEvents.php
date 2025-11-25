@@ -131,11 +131,11 @@ trait RepositoryEvents
     /**
      * Override create method to fire events.
      */
-    public function create(array $attributes = [])
+    public function create(array $data): \Illuminate\Database\Eloquent\Model
     {
-        $this->fireEvent('creating', $attributes);
+        $this->fireEvent('creating', $data);
         
-        $result = parent::create($attributes);
+        $result = parent::create($data);
         
         $this->fireEvent('created', $result);
         
@@ -145,11 +145,11 @@ trait RepositoryEvents
     /**
      * Override update method to fire events.
      */
-    public function update($id, array $attributes = [])
+    public function update(int $id, array $data): \Illuminate\Database\Eloquent\Model
     {
-        $this->fireEvent('updating', ['id' => $id, 'attributes' => $attributes]);
+        $this->fireEvent('updating', ['id' => $id, 'data' => $data]);
         
-        $result = parent::update($id, $attributes);
+        $result = parent::update($id, $data);
         
         $this->fireEvent('updated', $result);
         
@@ -159,7 +159,7 @@ trait RepositoryEvents
     /**
      * Override delete method to fire events.
      */
-    public function delete($id)
+    public function delete(int $id): bool
     {
         $this->fireEvent('deleting', $id);
         
@@ -173,7 +173,7 @@ trait RepositoryEvents
     /**
      * Override find method to fire events.
      */
-    public function find($id, array $columns = ['*'])
+    public function find(int $id, array $columns = ['*']): ?\Illuminate\Database\Eloquent\Model
     {
         $this->fireEvent('finding', $id);
         
