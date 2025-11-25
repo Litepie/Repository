@@ -129,6 +129,22 @@ trait RepositoryEvents
     }
 
     /**
+     * Configure events settings.
+     */
+    public function configureEvents(array $config): self
+    {
+        if (isset($config['enabled'])) {
+            $this->eventsEnabled = $config['enabled'];
+        }
+        
+        if (isset($config['events']) && is_array($config['events'])) {
+            $this->repositoryEvents = $config['events'];
+        }
+        
+        return $this;
+    }
+
+    /**
      * Override create method to fire events.
      */
     public function create(array $data): \Illuminate\Database\Eloquent\Model

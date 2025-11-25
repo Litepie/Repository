@@ -54,7 +54,7 @@ trait RepositoryAggregations
     /**
      * Group by field with aggregations.
      */
-    public function groupBy(string $field, array $aggregations = ['count' => '*']): Collection
+    public function groupByWithAggregations(string $field, array $aggregations = ['count' => '*']): Collection
     {
         $query = $this->query->groupBy($field)->select($field);
         

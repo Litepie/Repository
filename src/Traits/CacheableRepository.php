@@ -283,7 +283,7 @@ trait CacheableRepository
     /**
      * Override get method with caching.
      */
-    public function get(array $columns = ['*'])
+    public function get(array $columns = ['*']): \Illuminate\Database\Eloquent\Collection
     {
         if (!$this->shouldCache()) {
             return parent::get($columns);
@@ -297,7 +297,7 @@ trait CacheableRepository
     /**
      * Override first method with caching.
      */
-    public function first(array $columns = ['*'])
+    public function first(array $columns = ['*']): ?\Illuminate\Database\Eloquent\Model
     {
         if (!$this->shouldCache()) {
             return parent::first($columns);
@@ -311,14 +311,14 @@ trait CacheableRepository
     /**
      * Override paginate method with caching.
      */
-    public function paginate(int $perPage = 15, array $columns = ['*'], string $pageName = 'page', ?int $page = null)
+    public function paginate(int $perPage = 15, array $columns = ['*']): \Illuminate\Pagination\LengthAwarePaginator
     {
         if (!$this->shouldCache()) {
-            return parent::paginate($perPage, $columns, $pageName, $page);
+            return parent::paginate($perPage, $columns);
         }
 
-        return $this->executeWithCache(function () use ($perPage, $columns, $pageName, $page) {
-            return parent::paginate($perPage, $columns, $pageName, $page);
+        return $this->executeWithCache(function () use ($perPage, $columns) {
+            return parent::paginate($perPage, $columns);
         });
     }
 }

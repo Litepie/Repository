@@ -52,9 +52,9 @@ trait SearchableRepository
     }
 
     /**
-     * Perform search query.
+     * Perform advanced search query with multiple options.
      */
-    public function search(string $query, array $options = []): Collection
+    public function advancedSearch(string $query, array $options = []): Collection
     {
         $options = array_merge($this->searchConfig, $options);
         

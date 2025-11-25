@@ -33,6 +33,26 @@ trait RepositoryMetrics
     protected int $startMemory;
 
     /**
+     * Configure metrics settings.
+     */
+    public function configureMetrics(array $config): self
+    {
+        if (isset($config['enabled'])) {
+            if ($config['enabled']) {
+                $this->enableProfiling();
+            } else {
+                $this->disableProfiling();
+            }
+        }
+        
+        if (isset($config['track_queries']) && $config['track_queries']) {
+            DB::enableQueryLog();
+        }
+        
+        return $this;
+    }
+
+    /**
      * Enable performance profiling.
      */
     public function enableProfiling(): self
@@ -413,42 +433,42 @@ trait RepositoryMetrics
     /**
      * Override methods to add profiling.
      */
-    public function get(array $columns = ['*'])
+    public function get(array $columns = ['*']): \Illuminate\Database\Eloquent\Collection
     {
         return $this->profileQuery(function () use ($columns) {
             return parent::get($columns);
         }, 'get');
     }
 
-    public function first(array $columns = ['*'])
+    public function first(array $columns = ['*']): ?\Illuminate\Database\Eloquent\Model
     {
         return $this->profileQuery(function () use ($columns) {
             return parent::first($columns);
         }, 'first');
     }
 
-    public function find($id, array $columns = ['*'])
+    public function find(int $id, array $columns = ['*']): ?\Illuminate\Database\Eloquent\Model
     {
         return $this->profileQuery(function () use ($id, $columns) {
             return parent::find($id, $columns);
         }, 'find');
     }
 
-    public function create(array $attributes = [])
+    public function create(array $data): \Illuminate\Database\Eloquent\Model
     {
-        return $this->profileQuery(function () use ($attributes) {
-            return parent::create($attributes);
+        return $this->profileQuery(function () use ($data) {
+            return parent::create($data);
         }, 'create');
     }
 
-    public function update($id, array $attributes = [])
+    public function update(int $id, array $data): \Illuminate\Database\Eloquent\Model
     {
-        return $this->profileQuery(function () use ($id, $attributes) {
-            return parent::update($id, $attributes);
+        return $this->profileQuery(function () use ($id, $data) {
+            return parent::update($id, $data);
         }, 'update');
     }
 
-    public function delete($id)
+    public function delete(int $id): bool
     {
         return $this->profileQuery(function () use ($id) {
             return parent::delete($id);

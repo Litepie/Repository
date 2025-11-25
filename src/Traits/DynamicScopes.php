@@ -41,7 +41,7 @@ trait DynamicScopes
     /**
      * Apply dynamic scope.
      */
-    public function scope(string $name, ...$parameters): self
+    public function applyDynamicScope(string $name, ...$parameters): self
     {
         if (!isset($this->dynamicScopes[$name])) {
             throw new \InvalidArgumentException("Scope '{$name}' is not defined");
@@ -61,7 +61,7 @@ trait DynamicScopes
     /**
      * Conditional query execution.
      */
-    public function when(bool $condition, callable $callback, callable $default = null): self
+    public function whenCondition(bool $condition, callable $callback, callable $default = null): self
     {
         if ($condition) {
             $callback($this->query, $this);
@@ -75,9 +75,9 @@ trait DynamicScopes
     /**
      * Inverse conditional query execution.
      */
-    public function unless(bool $condition, callable $callback, callable $default = null): self
+    public function unlessCondition(bool $condition, callable $callback, callable $default = null): self
     {
-        return $this->when(!$condition, $callback, $default);
+        return $this->whenCondition(!$condition, $callback, $default);
     }
 
     /**
@@ -153,7 +153,7 @@ trait DynamicScopes
 
         // Check for dynamic scopes
         if (isset($this->dynamicScopes[$method])) {
-            return $this->scope($method, ...$parameters);
+            return $this->applyDynamicScope($method, ...$parameters);
         }
 
         // Check for query builder methods
@@ -358,13 +358,13 @@ trait DynamicScopes
     {
         foreach ($pipes as $pipe) {
             if (is_string($pipe) && isset($this->dynamicScopes[$pipe])) {
-                $this->scope($pipe);
+                $this->applyDynamicScope($pipe);
             } elseif (is_callable($pipe)) {
                 $pipe($this->query, $this);
             } elseif (is_array($pipe) && count($pipe) >= 2) {
                 [$method, $parameters] = $pipe;
                 if (isset($this->dynamicScopes[$method])) {
-                    $this->scope($method, ...(array) $parameters);
+                    $this->applyDynamicScope($method, ...(array) $parameters);
                 } else {
                     $this->query->$method(...(array) $parameters);
                 }
